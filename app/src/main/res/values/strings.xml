@@ -24,5 +24,8 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Batal</string>
 
+    <string name="content_desc_background">Latar belakang neon</string>
+    <string name="content_desc_pick_date">Pilih tanggal lahir</string>
+
 
 </resources>
