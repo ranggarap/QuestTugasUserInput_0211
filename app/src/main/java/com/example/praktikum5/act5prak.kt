@@ -92,3 +92,205 @@ fun FormDataDiri(modifier: Modifier = Modifier) {
                 .fillMaxWidth()
                 .height(headerHeight)
         )
+
+        Scaffold(containerColor = Color.Transparent) { innerPadding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+            ) {
+                Spacer(modifier = Modifier.height(headerHeight))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(fieldSpacing)
+                ) {
+                    OutlinedTextField(
+                        value = textNamaDepan,
+                        onValueChange = { textNamaDepan = it },
+                        label = { Text(stringResource(R.string.label_first_name)) },
+                        singleLine = true,
+                        modifier = Modifier.weight(1f)
+                    )
+                    OutlinedTextField(
+                        value = textNamaBelakang,
+                        onValueChange = { textNamaBelakang = it },
+                        label = { Text(stringResource(R.string.label_last_name)) },
+                        singleLine = true,
+
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(fieldSpacing))
+
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text(stringResource(R.string.label_email)) },
+                    singleLine = true,
+                    keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                        keyboardType = KeyboardType.Email
+                    ),
+                    shape = fieldShape,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(fieldSpacing))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(fieldSpacing)
+                ) {
+                    OutlinedTextField(
+                        value = birthDate,
+                        onValueChange = { },
+                        readOnly = true,
+                        label = { Text(stringResource(R.string.label_birth_date)) },
+                        singleLine = true,
+                        trailingIcon = {
+                            IconButton(onClick = { showDatePicker = true }) {
+                                Icon(
+                                    imageVector = Icons.Default.DateRange,
+                                    contentDescription = stringResource(R.string.content_desc_pick_date)
+                                )
+                            }
+                        },
+                        shape = fieldShape,
+                        modifier = Modifier.weight(1f)
+                    )
+
+                    ExposedDropdownMenuBox(
+                        expanded = experienceExpanded,
+                        onExpandedChange = { experienceExpanded = it },
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        OutlinedTextField(
+                            value = experience,
+                            onValueChange = { },
+                            readOnly = true,
+                            label = { Text(stringResource(R.string.label_experience)) },
+                            singleLine = true,
+                            trailingIcon = {
+                                ExposedDropdownMenuDefaults.TrailingIcon(expanded = experienceExpanded)
+                            },
+                            shape = fieldShape,
+                            modifier = Modifier
+                                .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
+                                .fillMaxWidth()
+                        )
+
+                        ExposedDropdownMenu(
+                            expanded = experienceExpanded,
+                            onDismissRequest = { experienceExpanded = false }
+                        ) {
+                            experienceOptions.forEach { option ->
+                                DropdownMenuItem(
+                                    text = { Text(option) },
+                                    onClick = {
+                                        experience = option
+                                        experienceExpanded = false
+                                    }
+                                )
+                            }
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(titleSpacing))
+
+                Text(
+                    text = stringResource(R.string.label_skill),
+                    color = colorResource(R.color.white),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = dimensionResource(R.dimen.label_text_size).value.sp,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    SkillCheckbox(
+                        label = stringResource(R.string.skill_android),
+                        checked = androidChecked,
+                        onCheckedChange = { androidChecked = it }
+                    )
+                    SkillCheckbox(
+                        label = stringResource(R.string.skill_uiux),
+                        checked = uiuxChecked,
+                        onCheckedChange = { uiuxChecked = it }
+                    )
+                    SkillCheckbox(
+                        label = stringResource(R.string.skill_web),
+                        checked = webChecked,
+                        onCheckedChange = { webChecked = it }
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(sectionSpacing))
+
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp),
+                    enabled = textNamaDepan.isNotEmpty() && textNamaBelakang.isNotEmpty() && email.isNotEmpty() && experience.isNotEmpty() && birthDate.isNotEmpty(),
+                    onClick = {
+                        namaD = textNamaDepan
+                        namaB = textNamaBelakang
+                        mail = email
+                        birth = birthDate
+                        xperience = experience
+                        showDatePicker = false
+                    }
+                ) {
+                    Text(text = "Proceed")
+                }
+            }
+        }
+    }
+
+    if (showDatePicker) {
+        DatePickerDialog(
+            onDismissRequest = { showDatePicker = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    datePickerState.selectedDateMillis?.let { millis ->
+                        birthDate = dateFormat.format(Date(millis))
+                    }
+                    showDatePicker = false
+                }) {
+                    Text(stringResource(R.string.dialog_ok))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDatePicker = false }) {
+                    Text(stringResource(R.string.dialog_cancel))
+                }
+            }
+        ) {
+            DatePicker(state = datePickerState)
+        }
+    }
+}
+
+@Composable
+fun SkillCheckbox(
+    label: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit
+) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Checkbox(
+            checked = checked,
+            onCheckedChange = onCheckedChange,
+            colors = CheckboxDefaults.colors(
+                checkedColor = colorResource(R.color.purple_primary)
+            )
+        )
+        Text(
+            text = label,
+            color = colorResource(R.color.text_secondary),
+            fontSize = dimensionResource(R.dimen.label_text_size).value.sp
+        )
+    }
+}
