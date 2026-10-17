@@ -2,5 +2,5 @@
 <resources>
     <dimen name="header_height">240dp</dimen>
     <dimen name="card_corner_radius">32dp</dimen>
-
-</resources>
+    <dimen name="screen_padding">24dp</dimen>
+    <dimen name="section_spacing">24dp</dimen>
