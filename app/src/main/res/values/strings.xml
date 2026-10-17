@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">praktikum5</string>
+
+    <string name="form_title">Form Biodata</string>
+    <string name="form_subtitle">Silakan isi biodata Anda dibawah ini !!!</string>
+
+</resources>
