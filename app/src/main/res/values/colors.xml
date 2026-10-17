@@ -10,4 +10,10 @@
     <color name="text_primary">#222222</color>
     <color name="text_secondary">#666666</color>
 
+    <color name="field_border">#9E9E9E</color>
+
+    <color name="button_enabled">#7B2CBF</color>
+    <color name="button_enabled_text">#FFFFFF</color>
+    <color name="button_disabled">#E0E0E0</color>
+    <color name="button_disabled_text">#FFFFFF</color>
 </resources>
