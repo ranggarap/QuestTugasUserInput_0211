@@ -20,5 +20,9 @@
     <string name="toast_submit">Halo %1$s! Skill yang dipilih: %2$s</string>
     <string name="full_name_format">%1$s %2$s</string>
 
+    <string name="date_pattern">dd/MM/yyyy</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Batal</string>
+
 
 </resources>
