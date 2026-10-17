@@ -82,4 +82,13 @@ fun FormDataDiri(modifier: Modifier = Modifier) {
     var mail by remember { mutableStateOf("") }
     var xperience by remember { mutableStateOf("") }
     var birth by remember { mutableStateOf("") }
-}
+
+    Box(modifier = modifier.fillMaxSize()) {
+        Image(
+            painter = painterResource(R.drawable.logo_umy), // Pastikan file gambar Anda bernama 'logo_umy.jpg' (huruf kecil semua)
+            contentDescription = stringResource(R.string.content_desc_background),
+            contentScale = ContentScale.Fit,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(headerHeight)
+        )
