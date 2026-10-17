@@ -16,4 +16,9 @@
     <string name="skill_web">Web</string>
     <string name="skill_separator">, </string>
 
+    <string name="button_proceed">Proceed</string>
+    <string name="toast_submit">Halo %1$s! Skill yang dipilih: %2$s</string>
+    <string name="full_name_format">%1$s %2$s</string>
+
+
 </resources>
